@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,7 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
-        var mouseHorizontal = Input.GetAxis("Mouse X");
+        var mouseHorizontal = Input.GetAxis("Mouse X")+ Input.GetAxis("HorizontalXboxRightStick"); 
         
         transform.Rotate(Vector3.up  * mouseHorizontal * turnSpeed*Time.deltaTime);
         Vector3 moveVector = transform.forward * vertical + transform.right * horizontal;
