@@ -112,7 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883848897b49a324dace4005c38becbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialPoolSize: 50
   damage: 10
+  explosionEffect: {fileID: 114566962382578006, guid: 46876a2780737ec45a19d62f88e5ce56,
+    type: 2}
 --- !u!135 &135567147157779862
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -4,9 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class EggBullet : PooledMonoBehaviour,IBullet
 {
-    private Rigidbody bulletRigidbody;
-    [SerializeField]private int damage;
     
+    [SerializeField]private int damage;
+    [SerializeField]private PooledMonoBehaviour explosionEffect;
    
     
     public void GiveDamage(ITakeDamage objectToHit)
@@ -14,12 +14,11 @@ public class EggBullet : PooledMonoBehaviour,IBullet
         objectToHit.TakeDamage(damage);
     }
 
-    private void Awake()
-    {
-        bulletRigidbody = GetComponent<Rigidbody>();
-    }
+    
     private void OnCollisionEnter(Collision collision)
     {
+        var particle=explosionEffect.Get<CFX_AutoDestructShuriken>(collision.contacts[0].point, Quaternion.identity);
+        
         ReturnToPool();
         //Destroy(gameObject, 0);
 

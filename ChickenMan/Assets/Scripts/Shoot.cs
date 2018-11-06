@@ -17,6 +17,9 @@ public class Shoot : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
     private Vector3 lastShootingPoint;
+    [SerializeField]
+    private float timeToNextShot = 0.25f;
+    private float bulletTimer = 0f;
     private void Awake()
     {
         lastShootingPoint = shootingPoint2.position;
@@ -33,6 +36,7 @@ public class Shoot : MonoBehaviour
         
         projectile.GetComponent<Rigidbody>().velocity = direction * moveSpeed;
         lastShootingPoint = shootFrom;
+        bulletTimer = 0f;
     }
 
     private Vector3 ToggleShootingPoint()
@@ -61,13 +65,19 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        bulletTimer += Time.deltaTime;
+        if (CanShoot())
         {
-            
+            if (Input.GetButton("Fire1") || (Input.GetAxis("XboxRT") == 0 ? false : true))
+            {
                 ShootBullet();
-            
-            
-           
+            }
         }
+        
+    }
+
+    private bool CanShoot()
+    {
+        return bulletTimer >= timeToNextShot;
     }
 }
