@@ -28,7 +28,9 @@ public class Shoot : MonoBehaviour
         Vector3 shootFrom = ToggleShootingPoint();
         
         Vector3 direction =  GetDirection(shootFrom) ;
-        var projectile = Instantiate(bulletToShoot, shootFrom, Quaternion.Euler(direction));
+        //var projectile = Instantiate(bulletToShoot, shootFrom, Quaternion.Euler(direction));
+        var projectile = bulletToShoot.Get<EggBullet>(shootFrom, Quaternion.identity);
+        
         projectile.GetComponent<Rigidbody>().velocity = direction * moveSpeed;
         lastShootingPoint = shootFrom;
     }

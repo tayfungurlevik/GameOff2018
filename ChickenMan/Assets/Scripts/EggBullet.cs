@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
-public class EggBullet : MonoBehaviour,IBullet
+public class EggBullet : PooledMonoBehaviour,IBullet
 {
     private Rigidbody bulletRigidbody;
     [SerializeField]private int damage;
@@ -16,5 +18,12 @@ public class EggBullet : MonoBehaviour,IBullet
     {
         bulletRigidbody = GetComponent<Rigidbody>();
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        ReturnToPool();
+        //Destroy(gameObject, 0);
 
+    }
+
+   
 }

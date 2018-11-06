@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         aim = followCamera.GetCinemachineComponent<CinemachineComposer>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 	
 	// Update is called once per frame
