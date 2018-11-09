@@ -18,7 +18,11 @@ public class EggBullet : PooledMonoBehaviour,IBullet
     private void OnCollisionEnter(Collision collision)
     {
         var particle=explosionEffect.Get<CFX_AutoDestructShuriken>(collision.contacts[0].point, Quaternion.identity);
-        
+        var damagableObject = collision.gameObject.GetComponent<ITakeDamage>();
+        if (damagableObject != null)
+        {
+            GiveDamage(damagableObject);
+        }
         ReturnToPool();
         //Destroy(gameObject, 0);
 
