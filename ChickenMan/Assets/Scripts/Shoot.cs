@@ -20,9 +20,11 @@ public class Shoot : MonoBehaviour
     [SerializeField]
     private float timeToNextShot = 0.25f;
     private float bulletTimer = 0f;
+    private Animator animator;
     private void Awake()
     {
         lastShootingPoint = shootingPoint2.position;
+        animator = GetComponentInChildren<Animator>();
     }
 
 
@@ -35,6 +37,7 @@ public class Shoot : MonoBehaviour
         var projectile = bulletToShoot.Get<EggBullet>(shootFrom, Quaternion.identity);
         
         projectile.GetComponent<Rigidbody>().velocity = direction * moveSpeed;
+        
         lastShootingPoint = shootFrom;
         bulletTimer = 0f;
     }
@@ -70,6 +73,7 @@ public class Shoot : MonoBehaviour
         {
             if (Input.GetButton("Fire1") || (Input.GetAxis("XboxRT") == 0 ? false : true))
             {
+                animator.SetTrigger("Shoot");
                 ShootBullet();
             }
         }
