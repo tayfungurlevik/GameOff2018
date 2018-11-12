@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour, ITakeDamage
+public class Zombie : PooledMonoBehaviour, ITakeDamage
 {
     [SerializeField]
     private int health = 100;
