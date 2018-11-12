@@ -2,6 +2,7 @@
 [Serializable]
 public struct SpawnWave
 {
+    public PooledMonoBehaviour ObjectToSpawn;
     public int SpawnedObjectNumberPerWave;
-    public float DelayAfterSpawn;
+    public float SpawnTime;
 }

@@ -20,10 +20,15 @@ public class ZombieController : MonoBehaviour
     }
     private void OnEnable()
     {
+        if (target==null)
+        {
+            target = FindObjectOfType<PlayerController>();
+        }
         zombie.OnZombieDied += Zombie_OnZombieDied;
     }
     private void OnDisable()
     {
+        target = null;
         zombie.OnZombieDied -= Zombie_OnZombieDied;
     }
 
