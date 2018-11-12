@@ -30,7 +30,7 @@ public class ZombieController : MonoBehaviour
     private void Zombie_OnZombieDied(int obj)
     {
         agent.isStopped = true;
-        Debug.Log("Zombie öldü.");
+        
         animator.SetFloat("Speed", 0);
         animator.SetBool("Died", true);
         isMoving = false;

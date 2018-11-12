@@ -21,10 +21,12 @@ public class Shoot : MonoBehaviour
     private float timeToNextShot = 0.25f;
     private float bulletTimer = 0f;
     private Animator animator;
+    private AudioSource audioSource;
     private void Awake()
     {
         lastShootingPoint = shootingPoint2.position;
         animator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -74,6 +76,7 @@ public class Shoot : MonoBehaviour
             if (Input.GetButton("Fire1") || (Input.GetAxis("XboxRT") == 0 ? false : true))
             {
                 animator.SetTrigger("Shoot");
+                audioSource.Play();
                 ShootBullet();
             }
         }
