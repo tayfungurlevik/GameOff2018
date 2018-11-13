@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+
 public class Zombie : PooledMonoBehaviour, ITakeDamage
 {
     [SerializeField]
@@ -11,11 +12,17 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
     
     public bool Died { get { return died; } }
     public event Action<int> OnZombieDied = delegate { };
+    public event Action OnZombieHit = delegate { };
 
     public void TakeDamage(int amount)
     {
-        if (!Died&&health>0)
+        if (!died && health>0)
         {
+
+            if (OnZombieHit!=null)
+            {
+                OnZombieHit();
+            }
             health -= amount;
         }
         else
@@ -32,5 +39,6 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
         {
             OnZombieDied(scoreOnDied);
         }
+        ReturnToPool(3.0f);
     }
 }

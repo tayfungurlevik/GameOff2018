@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class ZombieController : MonoBehaviour
+public class ZombieController : MonoBehaviour,IAttack
 {
     [SerializeField]
     private PlayerController target;
@@ -12,6 +12,7 @@ public class ZombieController : MonoBehaviour
     private Animator animator;
     private Zombie zombie;
     private bool isMoving = true;
+    private int[] attackMoves = new int[] { 1, 2, 3, 4 };
     private void Awake()
     {
         zombie = GetComponent<Zombie>();
@@ -25,11 +26,24 @@ public class ZombieController : MonoBehaviour
             target = FindObjectOfType<PlayerController>();
         }
         zombie.OnZombieDied += Zombie_OnZombieDied;
+        zombie.OnZombieHit += Zombie_OnZombieHit;
     }
+
+    private void Zombie_OnZombieHit()
+    {
+        if (!zombie.Died)
+        {
+            animator.SetTrigger("Hit");
+            isMoving = false;
+        }
+        
+    }
+
     private void OnDisable()
     {
         target = null;
         zombie.OnZombieDied -= Zombie_OnZombieDied;
+        zombie.OnZombieHit -= Zombie_OnZombieHit;
     }
 
     private void Zombie_OnZombieDied(int obj)
@@ -45,12 +59,24 @@ public class ZombieController : MonoBehaviour
     {
         if (isMoving)
         {
+            agent.isStopped = false;
             agent.SetDestination(target.transform.position);
             animator.SetFloat("Speed", 1f);
+        }
+        else
+        {
+            agent.isStopped = true;
+            
+            
         }
             
         
         
         
+    }
+
+    public void Attack(int attackDamage, ITakeDamage objectToAttack)
+    {
+        int randomAttackMove = UnityEngine.Random.Range(1, 5);
     }
 }
