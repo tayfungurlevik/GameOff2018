@@ -1030,6 +1030,7 @@ GameObject:
   - component: {fileID: 114296942651284550}
   - component: {fileID: 195664172286394796}
   - component: {fileID: 136726136282424340}
+  - component: {fileID: 114296344726851854}
   m_Layer: 0
   m_Name: Zombie1
   m_TagString: Untagged
@@ -2053,6 +2054,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+--- !u!114 &114296344726851854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999655366091820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2428d2ebf00db7e42bd61ca022393652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWhenAttacks: 10
+  delayBetweenAttacks: 1.5
+  maximumAttackRange: 1.5
+  delayBetweenAnimationAndDamage: 0.25
 --- !u!114 &114296942651284550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2205,7 +2221,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

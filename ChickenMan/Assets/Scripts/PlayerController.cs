@@ -7,11 +7,28 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
     private Animator animator;
 
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
     }
+
+    private void OnEnable()
+    {
+        PlayerHealth.OnPlayerDied += PlayerHealth_OnPlayerDied;
+    }
+    private void OnDisable()
+    {
+        PlayerHealth.OnPlayerDied -= PlayerHealth_OnPlayerDied;
+    }
+
+    private void PlayerHealth_OnPlayerDied()
+    {
+        Debug.Log("Player Died");
+        //animator.SetTrigger("Died");
+    }
+
     private void Update()
     {
         float vertical = Input.GetAxis("Vertical");
