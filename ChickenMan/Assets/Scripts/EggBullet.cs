@@ -7,11 +7,12 @@ public class EggBullet : PooledMonoBehaviour,IBullet
     
     [SerializeField]private int damage;
     [SerializeField]private PooledMonoBehaviour explosionEffect;
-   
+    [SerializeField] private Stats statistics;
     
     public void GiveDamage(ITakeDamage objectToHit)
     {
         objectToHit.TakeDamage(damage);
+        statistics.TotalNumberOfShotsHitZombie++;
     }
 
     

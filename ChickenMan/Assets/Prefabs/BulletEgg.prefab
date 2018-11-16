@@ -116,6 +116,7 @@ MonoBehaviour:
   damage: 50
   explosionEffect: {fileID: 114566962382578006, guid: 46876a2780737ec45a19d62f88e5ce56,
     type: 2}
+  statistics: {fileID: 11400000, guid: 72ba27cd2c22ff842b0244b0c8da7b7f, type: 2}
 --- !u!135 &135567147157779862
 SphereCollider:
   m_ObjectHideFlags: 1

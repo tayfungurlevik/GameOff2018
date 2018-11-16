@@ -1545,16 +1545,6 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1369796007}
-    - target: {fileID: 114296344726851854, guid: 625986b136165eb439fcb12a1db9f7b7,
-        type: 2}
-      propertyPath: delayBetweenAttacks
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114296344726851854, guid: 625986b136165eb439fcb12a1db9f7b7,
-        type: 2}
-      propertyPath: delayBetweenAnimationAndDamage
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625986b136165eb439fcb12a1db9f7b7, type: 2}
   m_IsPrefabAsset: 0
@@ -2078,11 +2068,12 @@ MonoBehaviour:
   bulletToShoot: {fileID: 114255983489893542, guid: d7cfa85af1020cf428aeb03eade34aae,
     type: 2}
   moveSpeed: 40
-  maxDistance: 10
+  maxDistance: 300
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2048
   timeToNextShot: 0.25
+  statistics: {fileID: 11400000, guid: 72ba27cd2c22ff842b0244b0c8da7b7f, type: 2}
 --- !u!82 &1369796010
 AudioSource:
   m_ObjectHideFlags: 0

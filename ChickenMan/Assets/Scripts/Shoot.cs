@@ -22,6 +22,8 @@ public class Shoot : MonoBehaviour
     private float bulletTimer = 0f;
     private Animator animator;
     private AudioSource audioSource;
+    [SerializeField]
+    private Stats statistics;
     private void Awake()
     {
         lastShootingPoint = shootingPoint2.position;
@@ -42,6 +44,7 @@ public class Shoot : MonoBehaviour
         
         lastShootingPoint = shootFrom;
         bulletTimer = 0f;
+        statistics.TotalNumberOfShotsMade++;
     }
 
     private Vector3 ToggleShootingPoint()
@@ -59,7 +62,7 @@ public class Shoot : MonoBehaviour
         var ray = Camera.main.ViewportPointToRay(Vector3.one / 2f);
 
         Vector3 target = ray.GetPoint(300);
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray, out hitInfo,maxDistance,layerMask))
         {
             target = hitInfo.point;
         }

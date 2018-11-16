@@ -11,6 +11,8 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
     private int scoreOnDied = 50;
     [SerializeField]
     private int scoreOnHit = 10;
+    [SerializeField]
+    private Stats statistics;
     private bool died = false;
     private Animator animator;
     private NavMeshAgent agent;
@@ -41,13 +43,17 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
         }
         else
         {
-            Die();
+            if (!died)
+            {
+                Die();
+            }
         }
         
     }
 
     private void Die()
     {
+        statistics.TotalNumberOfZombieKilled++;
         died = true;
         agent.isStopped = true;
         animator.SetTrigger("Died");
@@ -57,6 +63,7 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
             OnZombieDied(scoreOnDied);
         }
         ReturnToPool(8.0f);
+        
     }
     private IEnumerator WaitSeconds(float time)
     {
