@@ -8,6 +8,8 @@ public class SpawnPoint : MonoBehaviour
     
     [SerializeField]
     private SpawnWave[] spawnWaves;
+    [SerializeField]
+    private ParticleSystem particle;
     private int waveIndex = 0;
     private float time;
     private void OnDrawGizmosSelected()
@@ -22,6 +24,7 @@ public class SpawnPoint : MonoBehaviour
     public void Spawn()
     {
         time = 0.0f;
+        particle.Play();
         for (int i = 0; i < spawnWaves[waveIndex].SpawnedObjectNumberPerWave; i++)
         {
             spawnWaves[waveIndex].ObjectToSpawn.Get<Zombie>(this.transform.position, Quaternion.identity);

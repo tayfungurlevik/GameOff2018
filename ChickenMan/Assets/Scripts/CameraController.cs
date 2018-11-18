@@ -11,10 +11,7 @@ public class CameraController : MonoBehaviour {
     private float maxY=10.0f;
     [SerializeField]
     private float minY=-10.0f;
-    private void OnEnable()
-    {
-        GameManager.Instance.OnGamePausedStateChanged += Instance_OnGamePausedStateChanged;
-    }
+    
 
     private void Instance_OnGamePausedStateChanged(bool pause)
     {
@@ -38,6 +35,7 @@ public class CameraController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         aim = followCamera.GetCinemachineComponent<CinemachineComposer>();
+        GameManager.Instance.OnGamePausedStateChanged += Instance_OnGamePausedStateChanged;
         ChangeCursor(false);
     }
 	
