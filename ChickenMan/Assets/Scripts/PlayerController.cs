@@ -31,14 +31,18 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
-        var mouseHorizontal = Input.GetAxis("Mouse X")+ Input.GetAxis("HorizontalXboxRightStick"); 
+        if (!GameManager.Instance.Paused)
+        {
+            float vertical = Input.GetAxis("Vertical");
+            float horizontal = Input.GetAxis("Horizontal");
+            var mouseHorizontal = Input.GetAxis("Mouse X") + Input.GetAxis("HorizontalXboxRightStick");
+
+            transform.Rotate(Vector3.up * mouseHorizontal * turnSpeed * Time.deltaTime);
+            Vector3 moveVector = transform.forward * vertical + transform.right * horizontal;
+            animator.SetFloat("Speed", moveVector.magnitude);
+            characterController.SimpleMove(moveVector * speed);
+        }
         
-        transform.Rotate(Vector3.up  * mouseHorizontal * turnSpeed*Time.deltaTime);
-        Vector3 moveVector = transform.forward * vertical + transform.right * horizontal;
-        animator.SetFloat("Speed", moveVector.magnitude);
-        characterController.SimpleMove(moveVector * speed );
         
     }
 }

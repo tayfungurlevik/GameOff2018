@@ -73,16 +73,20 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bulletTimer += Time.deltaTime;
-        if (CanShoot())
-        {
-            if (Input.GetButton("Fire1") || (Input.GetAxis("XboxRT") == 0 ? false : true))
+        if (!GameManager.Instance.Paused)
+        { 
+            bulletTimer += Time.deltaTime;
+            if (CanShoot())
             {
-                animator.SetTrigger("Shoot");
-                audioSource.Play();
-                ShootBullet();
+                if (Input.GetButton("Fire1") || (Input.GetAxis("XboxRT") == 0 ? false : true))
+                {
+                    animator.SetTrigger("Shoot");
+                    audioSource.Play();
+                    ShootBullet();
+                }
             }
         }
+        
         
     }
 

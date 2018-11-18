@@ -33,17 +33,37 @@ public class ZombieController : MonoBehaviour
         {
             target = FindObjectOfType<PlayerController>();
         }
+        GameManager.Instance.OnGamePausedStateChanged += Instance_OnGamePausedStateChanged;
     }
     
+    private void Instance_OnGamePausedStateChanged(bool paused)
+    {
+        if (paused)
+        {
+            agent.isStopped = true;
+            animator.SetFloat("Speed", 0);
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
+    }
+
     private void OnDisable()
     {
         target = null;
+        GameManager.Instance.OnGamePausedStateChanged -= Instance_OnGamePausedStateChanged;
     }
 
     private void Update()
     {
-        agent.SetDestination(target.transform.position);
-        animator.SetFloat("Speed", agent.velocity.magnitude);
+
+        if (!GameManager.Instance.Paused)
+        {
+            agent.SetDestination(target.transform.position);
+            animator.SetFloat("Speed", agent.velocity.magnitude);
+        }
+          
     }
 
    

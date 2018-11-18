@@ -29,6 +29,10 @@ public class AttackController : MonoBehaviour, IAttack
 
     private void Update()
     {
+        if (GameManager.Instance.Paused)
+        {
+            return;
+        }
         attackTimer += Time.deltaTime;
         if (CanAttack())
         {

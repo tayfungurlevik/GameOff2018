@@ -1,4 +1,5 @@
-﻿using Cinemachine;
+﻿using System;
+using Cinemachine;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
@@ -10,17 +11,46 @@ public class CameraController : MonoBehaviour {
     private float maxY=10.0f;
     [SerializeField]
     private float minY=-10.0f;
+    private void OnEnable()
+    {
+        GameManager.Instance.OnGamePausedStateChanged += Instance_OnGamePausedStateChanged;
+    }
+
+    private void Instance_OnGamePausedStateChanged(bool pause)
+    {
+        ChangeCursor(pause);
+    }
+
+    private void ChangeCursor(bool pause)
+    {
+        if (pause)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
     // Use this for initialization
     void Start () {
         aim = followCamera.GetCinemachineComponent<CinemachineComposer>();
-        Cursor.lockState = CursorLockMode.Locked;
+        ChangeCursor(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        var vertical = (Input.GetAxis("Mouse Y")+Input.GetAxis("VerticalXboxRightStick")) * thirdPersonMouseSensitivity;
-        aim.m_TrackedObjectOffset.y += vertical;
-        //hareketi sınırlandırmak için Mathf.Clamp metodunu kullanıyoruz.
-        aim.m_TrackedObjectOffset.y = Mathf.Clamp(aim.m_TrackedObjectOffset.y, minY, maxY);
+        if (!GameManager.Instance.Paused)
+        {
+            var vertical = (Input.GetAxis("Mouse Y") + Input.GetAxis("VerticalXboxRightStick")) * thirdPersonMouseSensitivity;
+            aim.m_TrackedObjectOffset.y += vertical;
+            //hareketi sınırlandırmak için Mathf.Clamp metodunu kullanıyoruz.
+            aim.m_TrackedObjectOffset.y = Mathf.Clamp(aim.m_TrackedObjectOffset.y, minY, maxY);
+        }
+        
+        
     }
 }

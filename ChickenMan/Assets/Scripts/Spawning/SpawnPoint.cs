@@ -31,6 +31,10 @@ public class SpawnPoint : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.Paused)
+        {
+            return;
+        }
         time += Time.deltaTime;
         if (CanSpawn())
         {
