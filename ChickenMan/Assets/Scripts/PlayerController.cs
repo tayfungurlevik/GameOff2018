@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerHealth_OnPlayerDied()
     {
-        particleOnDie.Get<PooledMonoBehaviour>(transform.position, Quaternion.identity);
+        Instantiate(particleOnDie, transform.position, Quaternion.identity);
+        //particleOnDie.Get<PooledMonoBehaviour>(transform.position, Quaternion.identity);
         Destroy(gameObject);
        
         //animator.SetTrigger("Died");
