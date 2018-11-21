@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float turnSpeed;
     private CharacterController characterController;
     private Animator animator;
-
+    [SerializeField] private PooledMonoBehaviour particleOnDie;
 
     private void Awake()
     {
@@ -25,7 +25,9 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerHealth_OnPlayerDied()
     {
-        Debug.Log("Player Died");
+        particleOnDie.Get<PooledMonoBehaviour>(transform.position, Quaternion.identity);
+        Destroy(gameObject);
+       
         //animator.SetTrigger("Died");
     }
 

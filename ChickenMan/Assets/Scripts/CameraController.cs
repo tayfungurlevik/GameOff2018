@@ -13,30 +13,16 @@ public class CameraController : MonoBehaviour {
     private float minY=-10.0f;
     
 
-    private void Instance_OnGamePausedStateChanged(bool pause)
-    {
-        ChangeCursor(pause);
-    }
-
-    private void ChangeCursor(bool pause)
-    {
-        if (pause)
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-    }
+    
 
     // Use this for initialization
     void Start () {
         aim = followCamera.GetCinemachineComponent<CinemachineComposer>();
-        GameManager.Instance.OnGamePausedStateChanged += Instance_OnGamePausedStateChanged;
-        ChangeCursor(false);
+        
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+
+        
     }
 	
 	// Update is called once per frame

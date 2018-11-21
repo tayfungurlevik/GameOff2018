@@ -22,10 +22,17 @@ public class AttackController : MonoBehaviour, IAttack
     private void Awake()
     {
         player = FindObjectOfType<PlayerHealth>();
-        
+
+    }
+    private void OnEnable()
+    {
+        if (player==null)
+        {
+            player = FindObjectOfType<PlayerHealth>();
+        }
     }
 
-   
+
 
     private void Update()
     {
@@ -43,13 +50,21 @@ public class AttackController : MonoBehaviour, IAttack
 
     private bool CanAttack()
     {
-        return attackTimer>=delayBetweenAttacks&&
-            Vector3.Distance(transform.position, player.transform.position) <= maximumAttackRange;
+        if (player==null|| (player.GetComponent<PlayerHealth>().IsDead ==true))
+        {
+            return false;
+        }
+        else
+        {
+            return (attackTimer >= delayBetweenAttacks &&
+    Vector3.Distance(transform.position, player.transform.position) <= maximumAttackRange);
+        }
+        
     }
 
     public void Attack(int attackDamage, ITakeDamage objectToAttack)
     {
-        if (OnAttack!=null)
+        if (OnAttack != null)
         {
             OnAttack();
         }
@@ -60,6 +75,6 @@ public class AttackController : MonoBehaviour, IAttack
     private IEnumerator DealDamageAfterDelay()
     {
         yield return new WaitForSeconds(delayBetweenAnimationAndDamage);
-        
+
     }
 }

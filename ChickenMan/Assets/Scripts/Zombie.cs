@@ -5,8 +5,10 @@ using UnityEngine.AI;
 
 public class Zombie : PooledMonoBehaviour, ITakeDamage
 {
-    [SerializeField]
+    
     private int health = 100;
+    [SerializeField]
+    private int MaxHealth = 100;
     [SerializeField]
     private int scoreOnDied = 50;
     [SerializeField]
@@ -16,30 +18,50 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
     private bool died = false;
     private Animator animator;
     private NavMeshAgent agent;
-        
+
     public bool Died { get { return died; } }
     public static event Action<int> OnZombieDied = delegate { };
     public static event Action<int> OnZombieHit = delegate { };
-
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        GameManager.Instance.OnGameRestart += Instance_OnGameRestart;
     }
+
+    private void Instance_OnGameRestart()
+    {
+        ReturnToPool();
+    }
+
+    //private void OnEnable()
+    //{
+    //    health = MaxHealth;
+    //    GameManager.Instance.OnGameRestart += Instance_OnGameRestart;
+    //}
+    //private void OnDisable()
+    //{
+    //    GameManager.Instance.OnGameRestart -= Instance_OnGameRestart;
+    //}
+    //private void Instance_OnGameRestart()
+    //{
+    //    ReturnToPool();
+    //}
+
     public void TakeDamage(int amount)
     {
-        if (!died && health>0)
+        if (!died && health > 0)
         {
             health -= amount;
             agent.isStopped = true;
             animator.SetTrigger("Hit");
             WaitSeconds(2f);
             agent.isStopped = false;
-            if (OnZombieHit!=null)
+            if (OnZombieHit != null)
             {
                 OnZombieHit(scoreOnHit);
             }
-            
+
         }
         else
         {
@@ -48,7 +70,7 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
                 Die();
             }
         }
-        
+
     }
 
     private void Die()
@@ -58,12 +80,12 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
         agent.isStopped = true;
         animator.SetTrigger("Died");
 
-        if (OnZombieDied!=null)
+        if (OnZombieDied != null)
         {
             OnZombieDied(scoreOnDied);
         }
         ReturnToPool(8.0f);
-        
+
     }
     private IEnumerator WaitSeconds(float time)
     {

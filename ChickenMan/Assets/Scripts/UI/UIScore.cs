@@ -25,7 +25,11 @@ public class UIScore : MonoBehaviour
     {
         scoreText.text = string.Format("Score: {0}", totalScore);
     }
-
+    public void ResetScore()
+    {
+        totalScore = 0;
+        scoreText.text = string.Format("Score: {0}", totalScore);
+    }
     private void OnDisable()
     {
         Zombie.OnZombieHit -= Zombie_OnZombieHit;

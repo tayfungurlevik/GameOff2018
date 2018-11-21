@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour,ITakeDamage
 {
-    [SerializeField]
+   
     private int health = 100;
-    public static int MaxHealth;
+    [SerializeField]
+    private int MaxHealth=100;
     private bool isDead = false;
+    public bool IsDead { get { return isDead; } }
+    
     public static event Action OnPlayerDied = delegate { };
     public static event Action<int> OnPlayerHealthChanged = delegate { };
+
     private void Awake()
     {
-        MaxHealth = health;
+        health = MaxHealth;
     }
     public void TakeDamage(int amount)
     {
@@ -38,6 +42,16 @@ public class PlayerHealth : MonoBehaviour,ITakeDamage
         if (OnPlayerDied!=null)
         {
             OnPlayerDied();
+        }
+        
+    }
+    public  void ResetHealth()
+    {
+        isDead = false;
+        health = MaxHealth;
+        if (OnPlayerHealthChanged != null)
+        {
+            OnPlayerHealthChanged(health);
         }
     }
 }

@@ -6,7 +6,10 @@ public class Pool : MonoBehaviour
     private static Dictionary<PooledMonoBehaviour, Pool> pools = new Dictionary<PooledMonoBehaviour, Pool>();
     private PooledMonoBehaviour prefab;
     private Queue<PooledMonoBehaviour> objects = new Queue<PooledMonoBehaviour>();
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     public static Pool GetPool(PooledMonoBehaviour prefab)
     {
         if (pools.ContainsKey(prefab))

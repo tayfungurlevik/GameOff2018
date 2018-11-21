@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ce3557f0473374d9fd5728329c5865, type: 3}
   m_Name: Statistics
   m_EditorClassIdentifier: 
-  TotalNumberOfZombieKilled: 214
-  TotalNumberOfShotsMade: 1567
-  TotalNumberOfShotsHitZombie: 1252
+  TotalNumberOfZombieKilled: 0
+  TotalNumberOfShotsMade: 0
+  TotalNumberOfShotsHitZombie: 0

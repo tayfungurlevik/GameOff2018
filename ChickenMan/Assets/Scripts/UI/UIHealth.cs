@@ -17,6 +17,6 @@ public class UIHealth : MonoBehaviour
     }
     private void PlayerHealth_OnPlayerHealthChanged(int health)
     {
-        healthText.text = string.Format("{0}/{1}", health, PlayerHealth.MaxHealth);
+        healthText.text = string.Format("{0}/{1}", health, 100);
     }
 }
