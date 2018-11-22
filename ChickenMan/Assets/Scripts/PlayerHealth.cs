@@ -39,6 +39,10 @@ public class PlayerHealth : MonoBehaviour,ITakeDamage
     private void Die()
     {
         isDead = true;
+        if (OnPlayerHealthChanged != null)
+        {
+            OnPlayerHealthChanged(0);
+        }
         if (OnPlayerDied!=null)
         {
             OnPlayerDied();

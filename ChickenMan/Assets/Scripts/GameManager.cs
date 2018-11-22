@@ -15,25 +15,42 @@ public class GameManager : MonoBehaviour
     private UIScore uIScore;
     private void Awake()
     {
-        if (Instance==null)
+        if (Instance == null)
         {
             Instance = this;
         }
-        else if (Instance!=this)
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }
         playerHealth = FindObjectOfType<PlayerHealth>();
         uIScore = FindObjectOfType<UIScore>();
-        
+        HideCursor();
         DontDestroyOnLoad(gameObject);
     }
+    private void OnEnable()
+    {
+        PlayerHealth.OnPlayerDied += PlayerHealth_OnPlayerDied;
+    }
+    private void OnDisable()
+    {
+        PlayerHealth.OnPlayerDied -= PlayerHealth_OnPlayerDied;
+    }
+    private void PlayerHealth_OnPlayerDied()
+    {
+        PauseGame();
+    }
 
-    
+    private static void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Escape)||Input.GetButtonDown("Start Xbox"))
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Start Xbox"))
         {
             PauseGame();
 
@@ -43,10 +60,25 @@ public class GameManager : MonoBehaviour
     private void PauseGame()
     {
         paused = !paused;
+        if (paused)
+        {
+            ShowCursor();
+        }
+        else
+        {
+            HideCursor();
+        }
+
         if (OnGamePausedStateChanged != null)
         {
             OnGamePausedStateChanged(paused);
         }
+    }
+
+    private static void ShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void RestartGame()
@@ -67,11 +99,11 @@ public class GameManager : MonoBehaviour
     private void ResumeGame()
     {
         paused = false;
-        if (OnGamePausedStateChanged!=null)
+        if (OnGamePausedStateChanged != null)
         {
             OnGamePausedStateChanged(paused);
         }
-        
+
     }
 
     public void ExitGame()
