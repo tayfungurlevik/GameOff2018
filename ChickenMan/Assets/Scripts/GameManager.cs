@@ -26,8 +26,12 @@ public class GameManager : MonoBehaviour
         playerHealth = FindObjectOfType<PlayerHealth>();
         uIScore = FindObjectOfType<UIScore>();
         HideCursor();
+        
         DontDestroyOnLoad(gameObject);
     }
+
+   
+
     private void OnEnable()
     {
         PlayerHealth.OnPlayerDied += PlayerHealth_OnPlayerDied;

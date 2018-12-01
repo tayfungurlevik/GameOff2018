@@ -61,10 +61,14 @@ public class Shoot : MonoBehaviour
     {
         var ray = Camera.main.ViewportPointToRay(Vector3.one / 2f);
 
-        Vector3 target = ray.GetPoint(300);
+        Vector3 target;
         if (Physics.Raycast(ray, out hitInfo,maxDistance,layerMask))
         {
             target = hitInfo.point;
+        }
+        else
+        {
+            target = ray.GetPoint(300);
         }
         Vector3 direction = target - shootPos;
         direction.Normalize();

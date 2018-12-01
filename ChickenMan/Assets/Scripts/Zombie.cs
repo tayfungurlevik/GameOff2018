@@ -22,10 +22,18 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
     public bool Died { get { return died; } }
     public static event Action<int> OnZombieDied = delegate { };
     public static event Action<int> OnZombieHit = delegate { };
-    private void Awake()
+    private CapsuleCollider capsuleCollider;
+
+    
+
+    
+
+    private void Start()
     {
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        OnReturnPool += Zombie_OnReturnPool;
         GameManager.Instance.OnGameRestart += Instance_OnGameRestart;
     }
 
@@ -34,19 +42,12 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
         ReturnToPool();
     }
 
-    //private void OnEnable()
-    //{
-    //    health = MaxHealth;
-    //    GameManager.Instance.OnGameRestart += Instance_OnGameRestart;
-    //}
-    //private void OnDisable()
-    //{
-    //    GameManager.Instance.OnGameRestart -= Instance_OnGameRestart;
-    //}
-    //private void Instance_OnGameRestart()
-    //{
-    //    ReturnToPool();
-    //}
+    private void Zombie_OnReturnPool(PooledMonoBehaviour obj)
+    {
+        died = false;
+        health = MaxHealth;
+        capsuleCollider.enabled = true;
+    }
 
     public void TakeDamage(int amount)
     {
@@ -79,11 +80,12 @@ public class Zombie : PooledMonoBehaviour, ITakeDamage
         died = true;
         agent.isStopped = true;
         animator.SetTrigger("Died");
-
+        capsuleCollider.enabled = false;
         if (OnZombieDied != null)
         {
             OnZombieDied(scoreOnDied);
         }
+
         ReturnToPool(8.0f);
 
     }

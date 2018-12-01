@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPoolSize: 50
-  health: 300
+  MaxHealth: 100
   scoreOnDied: 200
   scoreOnHit: 10
   statistics: {fileID: 11400000, guid: 72ba27cd2c22ff842b0244b0c8da7b7f, type: 2}
@@ -1344,7 +1344,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 5
   m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 120
